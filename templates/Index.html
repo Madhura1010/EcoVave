@@ -10,147 +10,75 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="preload" href="/static/Assets/background.jpg" as="image">
     <style>
-        /* Mobile Responsiveness Additions */
+        /* Mobile Responsiveness Fixes */
         @media (max-width: 768px) {
             /* Navigation */
             .eco-nav {
-                padding: 15px 20px;
+                flex-wrap: wrap;
+                padding: 15px;
             }
+            
             .nav-links {
-                position: fixed;
-                top: 80px;
-                left: -100%;
+                display: none;
                 width: 100%;
-                height: calc(100vh - 80px);
-                background: #fff;
                 flex-direction: column;
-                align-items: center;
-                justify-content: flex-start;
-                padding-top: 30px;
-                transition: 0.5s;
-                z-index: 1000;
+                margin-top: 15px;
             }
+            
             .nav-links.active {
-                left: 0;
+                display: flex;
             }
+            
             .nav-links li {
-                margin: 15px 0;
+                margin: 5px 0;
             }
-            .nav-links li a {
-                font-size: 1.2rem;
-            }
+            
             .burger {
                 display: block;
+                cursor: pointer;
             }
             
             /* Hero Section */
             .hero-content {
-                padding: 0 20px;
+                padding: 20px;
                 text-align: center;
             }
-            .hero-tagline {
-                font-size: 1.2rem;
-            }
-            .hero-buttons {
-                flex-direction: column;
-                gap: 15px;
-            }
-            .hero-buttons .cta-button {
-                width: 100%;
-            }
             
-            /* Features Section */
+            /* Features */
             .feature-container {
                 grid-template-columns: 1fr;
-                gap: 20px;
-                padding: 0 20px;
+                gap: 15px;
+                padding: 0 15px;
             }
             
-            /* Models Section */
+            /* Models */
             .model-grid {
                 grid-template-columns: 1fr;
-                padding: 0 20px;
+                gap: 20px;
+                padding: 0 15px;
             }
             
-            /* Carbon Calculator */
+            /* Calculator */
             .calculator-container {
                 flex-direction: column;
-                padding: 0 20px;
-            }
-            .calculator-info, .calculator-form {
-                width: 100%;
-            }
-            .calculator-info {
-                margin-bottom: 30px;
-            }
-            
-            /* Testimonials */
-            .testimonial-container {
-                flex-direction: column;
-                padding: 0 20px;
-            }
-            .testimonial-card {
-                width: 100%;
-                margin-bottom: 30px;
-            }
-            
-            /* Blog Section */
-            .blog-grid {
-                grid-template-columns: 1fr;
-                padding: 0 20px;
-            }
-            
-            /* Newsletter */
-            .newsletter-container {
-                flex-direction: column;
-                text-align: center;
-                padding: 0 20px;
-            }
-            .newsletter-form {
-                width: 100%;
-                margin-top: 20px;
+                padding: 0 15px;
             }
             
             /* Footer */
             .footer-content {
                 grid-template-columns: 1fr;
                 gap: 30px;
-                padding: 0 20px;
-            }
-            .footer-section {
-                margin-bottom: 30px;
-            }
-            .footer-owner {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .owner-image {
-                margin-right: 0;
-                margin-bottom: 15px;
+                padding: 0 15px;
             }
         }
-
+        
+        /* Tablet Styles */
         @media (min-width: 769px) and (max-width: 1024px) {
-            /* Tablet Styles */
             .feature-container {
                 grid-template-columns: 1fr 1fr;
             }
+            
             .model-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-            .calculator-container {
-                flex-direction: column;
-            }
-            .calculator-info, .calculator-form {
-                width: 100%;
-            }
-            .testimonial-container {
-                flex-direction: column;
-            }
-            .blog-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-            .footer-content {
                 grid-template-columns: 1fr 1fr;
             }
         }
@@ -158,26 +86,26 @@
 </head>
 <body>
     <!-- Navigation -->
-<nav class="eco-nav">
-    <div class="logo-container">
-        <img src="{{ url_for('static', filename='Assets/logo.png') }}" alt="ECOVAVE Logo" class="logo-img" loading="lazy">
-        <div class="logo-text"><span class="logo-name">ECOVAVE</span><span class="logo-subtitle">Manufacturing LLP</span></div>
-    </div>
-    <ul class="nav-links">
-        <li><a href="{{ url_for('home') }}" class="active"><i class="fas fa-home"></i> Home</a></li>
-        <li><a href="{{ url_for('models') }}"><i class="fas fa-motorcycle"></i> Models</a></li>
-        <li><a href="{{ url_for('blog') }}"><i class="fas fa-blog"></i> Blog</a></li>
-        <li><a href="{{ url_for('faq') }}"><i class="fas fa-question-circle"></i> FAQ</a></li>
-        <li><a href="{{ url_for('about') }}"><i class="fas fa-info-circle"></i> About Us</a></li>
-        <li><a href="{{ url_for('contact') }}"><i class="fas fa-envelope"></i> Contact</a></li>
-        <li><a href="{{ url_for('login') }}"><i class="fas fa-envelope"></i>Admin Login</a></li>
-    </ul>
-    <div class="burger" aria-label="Menu">
-        <div class="line1"></div>
-        <div class="line2"></div>
-        <div class="line3"></div>
-    </div>
-</nav>
+    <nav class="eco-nav">
+        <div class="logo-container">
+            <img src="{{ url_for('static', filename='Assets/logo.png') }}" alt="ECOVAVE Logo" class="logo-img" loading="lazy">
+            <div class="logo-text"><span class="logo-name">ECOVAVE</span><span class="logo-subtitle">Manufacturing LLP</span></div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="{{ url_for('home') }}" class="active"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="{{ url_for('models') }}"><i class="fas fa-motorcycle"></i> Models</a></li>
+            <li><a href="{{ url_for('blog') }}"><i class="fas fa-blog"></i> Blog</a></li>
+            <li><a href="{{ url_for('faq') }}"><i class="fas fa-question-circle"></i> FAQ</a></li>
+            <li><a href="{{ url_for('about') }}"><i class="fas fa-info-circle"></i> About Us</a></li>
+            <li><a href="{{ url_for('contact') }}"><i class="fas fa-envelope"></i> Contact</a></li>
+            <li><a href="{{ url_for('login') }}"><i class="fas fa-user"></i> Admin Login</a></li>
+        </ul>
+        <div class="burger" aria-label="Menu">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+    </nav>
 
     <!-- Hero Section -->
     <section class="hero">

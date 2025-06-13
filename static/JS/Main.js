@@ -1,30 +1,34 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Mobile Navigation Toggle
+    // Mobile Navigation Toggle - Improved version
     const burger = document.querySelector('.burger');
     const navLinks = document.querySelector('.nav-links');
-    
-    burger.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-        burger.classList.toggle('toggle');
-    });
 
-    // Close mobile menu when clicking on a link
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', () => {
-            navLinks.classList.remove('active');
-            burger.classList.remove('toggle');
+    if (burger && navLinks) {
+        burger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            burger.classList.toggle('toggle');
         });
-    });
+
+        // Close menu on nav link click
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                burger.classList.remove('toggle');
+            });
+        });
+    }
 
     // Add scroll effect to navigation
-    window.addEventListener('scroll', () => {
-        const nav = document.querySelector('.eco-nav');
-        if (window.scrollY > 50) {
-            nav.classList.add('scrolled');
-        } else {
-            nav.classList.remove('scrolled');
-        }
-    });
+    const nav = document.querySelector('.eco-nav');
+    if (nav) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+    }
 
     // Carbon Calculator Functionality
     const carbonCalculator = document.getElementById('carbon-calculator');
@@ -192,54 +196,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Then run on scroll
     window.addEventListener('scroll', animateOnScroll);
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-    // Mobile Navigation Toggle
-    const burger = document.querySelector('.burger');
-    const navLinks = document.querySelector('.nav-links');
-    
-    burger.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-        burger.classList.toggle('toggle');
-    });
-
-    // Close mobile menu when clicking on a link
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', () => {
-            navLinks.classList.remove('active');
-            burger.classList.remove('toggle');
-        });
-    });
-
-    // Add scroll effect to navigation
-    window.addEventListener('scroll', () => {
-        const nav = document.querySelector('.eco-nav');
-        if (window.scrollY > 50) {
-            nav.classList.add('scrolled');
-        } else {
-            nav.classList.remove('scrolled');
-        }
-    });
-
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            // Skip if it's a regular link
-            if (this.getAttribute('href') === '#') return;
-            
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-            
-            if (targetElement) {
-                window.scrollTo({
-                    top: targetElement.offsetTop - 100,
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
 
     // Model image zoom effect
     const mainImages = document.querySelectorAll('.main-image img');
@@ -339,63 +295,6 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('scroll', highlightComparison);
     highlightComparison();
 
-    // Initialize animations when elements come into view
-    const animateOnScroll = () => {
-        const elements = document.querySelectorAll('.model-detail, .comparison-section, .test-ride-cta');
-        
-        elements.forEach(element => {
-            const elementPosition = element.getBoundingClientRect().top;
-            const screenPosition = window.innerHeight / 1.2;
-            
-            if (elementPosition < screenPosition) {
-                element.style.opacity = '1';
-                element.style.transform = 'translateY(0)';
-            }
-        });
-    };
-
-    // Set initial state for animated elements
-    document.querySelectorAll('.model-detail, .comparison-section, .test-ride-cta').forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    });
-
-    // Run once on load
-    animateOnScroll();
-    
-    // Then run on scroll
-    window.addEventListener('scroll', animateOnScroll);
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-    // Mobile Navigation Toggle
-    const burger = document.querySelector('.burger');
-    const navLinks = document.querySelector('.nav-links');
-    
-    burger.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-        burger.classList.toggle('toggle');
-    });
-
-    // Close mobile menu when clicking on a link
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', () => {
-            navLinks.classList.remove('active');
-            burger.classList.remove('toggle');
-        });
-    });
-
-    // Add scroll effect to navigation
-    window.addEventListener('scroll', () => {
-        const nav = document.querySelector('.eco-nav');
-        if (window.scrollY > 50) {
-            nav.classList.add('scrolled');
-        } else {
-            nav.classList.remove('scrolled');
-        }
-    });
-
     // Blog search functionality
     const blogSearch = document.getElementById('blog-search');
     const searchBtn = document.querySelector('.search-container button');
@@ -493,124 +392,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-
-    // Share buttons functionality
-    const shareButtons = document.querySelectorAll('.article-meta span:last-child');
-    
-    shareButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const article = this.closest('.blog-article');
-            const articleTitle = article.querySelector('h2').textContent;
-            const articleUrl = window.location.href.split('#')[0] + '#' + article.id;
-            
-            // In a real implementation, this would open share dialog
-            alert(`Share "${articleTitle}" via:\nURL: ${articleUrl}`);
-        });
-    });
-
-    // Newsletter subscription
-    const newsletterForm = document.querySelector('.update-form');
-    
-    if (newsletterForm) {
-        newsletterForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const emailInput = this.querySelector('input[type="email"]');
-            const email = emailInput.value.trim();
-            
-            if (email && validateEmail(email)) {
-                // In a real implementation, this would send to your backend
-                alert('Thank you for subscribing to our newsletter!');
-                emailInput.value = '';
-            } else {
-                alert('Please enter a valid email address.');
-            }
-        });
-    }
-
-    function validateEmail(email) {
-        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return re.test(email);
-    }
-
-    // Scroll animations
-    const animateOnScroll = () => {
-        const elements = document.querySelectorAll('.reveal');
-        
-        elements.forEach(element => {
-            const elementPosition = element.getBoundingClientRect().top;
-            const screenPosition = window.innerHeight / 1.2;
-            
-            if (elementPosition < screenPosition) {
-                element.classList.add('active');
-            }
-        });
-    };
-
-    // Initialize scroll animations
-    window.addEventListener('scroll', animateOnScroll);
-    animateOnScroll();
-
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            
-            if (targetId === '#') return;
-            
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                window.scrollTo({
-                    top: targetElement.offsetTop - 120,
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
-
-    // Article hover effects
-    const articles = document.querySelectorAll('.blog-article');
-    
-    articles.forEach(article => {
-        article.addEventListener('mouseenter', () => {
-            const img = article.querySelector('.article-image img');
-            if (img) img.style.transform = 'scale(1.03)';
-        });
-        
-        article.addEventListener('mouseleave', () => {
-            const img = article.querySelector('.article-image img');
-            if (img) img.style.transform = 'scale(1)';
-        });
-    });
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-    // Mobile Navigation Toggle
-    const burger = document.querySelector('.burger');
-    const navLinks = document.querySelector('.nav-links');
-    
-    burger.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-        burger.classList.toggle('toggle');
-    });
-
-    // Close mobile menu when clicking on a link
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', () => {
-            navLinks.classList.remove('active');
-            burger.classList.remove('toggle');
-        });
-    });
-
-    // Add scroll effect to navigation
-    window.addEventListener('scroll', () => {
-        const nav = document.querySelector('.eco-nav');
-        if (window.scrollY > 50) {
-            nav.classList.add('scrolled');
-        } else {
-            nav.classList.remove('scrolled');
-        }
-    });
 
     // FAQ Accordion Functionality
     const faqItems = document.querySelectorAll('.faq-item');
@@ -721,81 +502,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            
-            if (targetId === '#') return;
-            
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                window.scrollTo({
-                    top: targetElement.offsetTop - 120,
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
-
-    // Initialize animations when elements come into view
-    const animateOnScroll = () => {
-        const elements = document.querySelectorAll('.reveal');
-        
-        elements.forEach(element => {
-            const elementPosition = element.getBoundingClientRect().top;
-            const screenPosition = window.innerHeight / 1.2;
-            
-            if (elementPosition < screenPosition) {
-                element.classList.add('active');
-            }
-        });
-    };
-
-    // Set initial state for animated elements
-    document.querySelectorAll('.reveal').forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    });
-
-    // Run once on load
-    animateOnScroll();
-    
-    // Then run on scroll
-    window.addEventListener('scroll', animateOnScroll);
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-    // Mobile Navigation Toggle
-    const burger = document.querySelector('.burger');
-    const navLinks = document.querySelector('.nav-links');
-    
-    burger.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-        burger.classList.toggle('toggle');
-    });
-
-    // Close mobile menu when clicking on a link
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', () => {
-            navLinks.classList.remove('active');
-            burger.classList.remove('toggle');
-        });
-    });
-
-    // Add scroll effect to navigation
-    window.addEventListener('scroll', () => {
-        const nav = document.querySelector('.eco-nav');
-        if (window.scrollY > 50) {
-            nav.classList.add('scrolled');
-        } else {
-            nav.classList.remove('scrolled');
-        }
-    });
-
-// Video Play Button Functionality
+    // Video Play Button Functionality
     const promoVideo = document.getElementById('promoVideo');
     const videoOverlay = document.getElementById('videoOverlay');
     const videoPlayBtn = document.getElementById('videoPlayBtn');
@@ -818,24 +525,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            
-            if (targetId === '#') return;
-            
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                window.scrollTo({
-                    top: targetElement.offsetTop - 100,
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
-
     // Back to Top Button
     const backToTopBtn = document.querySelector('.back-to-top');
     
@@ -870,110 +559,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const img = this.querySelector('.team-image img');
             if (img) img.style.transform = 'scale(1)';
         });
-    });
-
-    // Social Media Links
-    const socialLinks = document.querySelectorAll('.social-links a');
-    
-    socialLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            // In a real implementation, this would open the social media profile
-            alert('This would open ' + this.querySelector('i').className.split(' ')[1].replace('fa-', ''));
-        });
-    });
-
-    // Scroll Animations
-    const animateOnScroll = () => {
-        const elements = document.querySelectorAll('.mission-section, .video-section, .team-section');
-        
-        elements.forEach(element => {
-            const elementPosition = element.getBoundingClientRect().top;
-            const screenPosition = window.innerHeight / 1.2;
-            
-            if (elementPosition < screenPosition) {
-                element.style.opacity = '1';
-                element.style.transform = 'translateY(0)';
-            }
-        });
-    };
-
-    // Set initial state for animated elements
-    document.querySelectorAll('.mission-section, .video-section, .team-section').forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    });
-
-    // Run once on load
-    animateOnScroll();
-    
-    // Then run on scroll
-    window.addEventListener('scroll', animateOnScroll);
-
-    // Stat counter animation
-    const statCards = document.querySelectorAll('.stat-card');
-    const statsSection = document.querySelector('.about-hero');
-    
-    const animateStats = () => {
-        const statsPosition = statsSection.getBoundingClientRect().top;
-        const screenPosition = window.innerHeight / 1.5;
-        
-        if (statsPosition < screenPosition) {
-            statCards.forEach((card, index) => {
-                setTimeout(() => {
-                    const numberElement = card.querySelector('h3');
-                    const targetNumber = parseInt(numberElement.textContent.replace('+', ''));
-                    let currentNumber = 0;
-                    const increment = targetNumber / 20;
-                    
-                    const counter = setInterval(() => {
-                        currentNumber += increment;
-                        if (currentNumber >= targetNumber) {
-                            clearInterval(counter);
-                            currentNumber = targetNumber;
-                        }
-                        numberElement.textContent = Math.floor(currentNumber) + (targetNumber > 1000 ? '+' : '');
-                    }, 50);
-                }, index * 200);
-            });
-            
-            // Remove event listener after animation runs once
-            window.removeEventListener('scroll', animateStats);
-        }
-    };
-    
-    // Initialize stat counter animation
-    window.addEventListener('scroll', animateStats);
-    animateStats(); // Run on load in case section is already visible
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-    // Mobile Navigation Toggle
-    const burger = document.querySelector('.burger');
-    const navLinks = document.querySelector('.nav-links');
-    
-    burger.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-        burger.classList.toggle('toggle');
-    });
-
-    // Close mobile menu when clicking on a link
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', () => {
-            navLinks.classList.remove('active');
-            burger.classList.remove('toggle');
-        });
-    });
-
-    // Add scroll effect to navigation
-    window.addEventListener('scroll', () => {
-        const nav = document.querySelector('.eco-nav');
-        if (window.scrollY > 50) {
-            nav.classList.add('scrolled');
-        } else {
-            nav.classList.remove('scrolled');
-        }
     });
 
     // Contact form submission
@@ -1053,7 +638,9 @@ document.addEventListener('DOMContentLoaded', function() {
             mapUrl = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3742.356963342664!2d74.817315315644!3d20.28941808640491!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae0c0a1f0a1f0a%3A0x1f0a1f0a1f0a1f0a!2sNardana%20Growth%20Center%2C%20Phase%202%2C%20Bangale%20MIDC%20Area%2C%20NH-52%2C%20Nardana%2C%20Maharashtra%20425404!5e0!3m2!1sen!2sin!4v1624456789012!5m2!1sen!2sin';
         }
         
-        locationMap.src = mapUrl;
+        if (locationMap) {
+            locationMap.src = mapUrl;
+        }
     }
 
     // View on Map links functionality
@@ -1081,62 +668,58 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            // Skip if it's a regular link
-            if (this.getAttribute('href') === '#') return;
-            
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-            
-            if (targetElement) {
-                window.scrollTo({
-                    top: targetElement.offsetTop - 100,
-                    behavior: 'smooth'
-                });
+    // External link confirmation
+    function handleExternalLink(event) {
+        const isExternal = event.currentTarget.getAttribute('href').startsWith('http');
+        if (isExternal) {
+            const confirmed = confirm('You are about to leave our website. Are you sure you want to continue?');
+            if (!confirmed) {
+                event.preventDefault();
             }
-        });
-    });
-
-    // Initialize animations when elements come into view
-    const animateOnScroll = () => {
-        const elements = document.querySelectorAll('.animate__animated');
-        
-        elements.forEach(element => {
-            const elementPosition = element.getBoundingClientRect().top;
-            const screenPosition = window.innerHeight / 1.2;
-            
-            if (elementPosition < screenPosition) {
-                const animationClass = element.classList[1]; // Get the animation class
-                element.classList.add(animationClass);
-            }
-        });
-    };
-
-    // Run once on load
-    animateOnScroll();
-    
-    // Then run on scroll
-    window.addEventListener('scroll', animateOnScroll);
-});
-// Add this to your existing Main.js file
-
-function handleExternalLink(event) {
-    const isExternal = event.currentTarget.getAttribute('href').startsWith('http');
-    if (isExternal) {
-        const confirmed = confirm('You are about to leave our website. Are you sure you want to continue?');
-        if (!confirmed) {
-            event.preventDefault();
         }
     }
-}
 
-// Add event listeners to all social links
-document.addEventListener('DOMContentLoaded', () => {
+    // Add event listeners to all social links
     const socialLinks = document.querySelectorAll('.social-links a[href^="http"]');
     socialLinks.forEach(link => {
         link.addEventListener('click', handleExternalLink);
     });
+
+    // Stat counter animation
+    const statCards = document.querySelectorAll('.stat-card');
+    const statsSection = document.querySelector('.about-hero');
+    
+    const animateStats = () => {
+        if (!statsSection) return;
+        
+        const statsPosition = statsSection.getBoundingClientRect().top;
+        const screenPosition = window.innerHeight / 1.5;
+        
+        if (statsPosition < screenPosition) {
+            statCards.forEach((card, index) => {
+                setTimeout(() => {
+                    const numberElement = card.querySelector('h3');
+                    const targetNumber = parseInt(numberElement.textContent.replace('+', ''));
+                    let currentNumber = 0;
+                    const increment = targetNumber / 20;
+                    
+                    const counter = setInterval(() => {
+                        currentNumber += increment;
+                        if (currentNumber >= targetNumber) {
+                            clearInterval(counter);
+                            currentNumber = targetNumber;
+                        }
+                        numberElement.textContent = Math.floor(currentNumber) + (targetNumber > 1000 ? '+' : '');
+                    }, 50);
+                }, index * 200);
+            });
+            
+            // Remove event listener after animation runs once
+            window.removeEventListener('scroll', animateStats);
+        }
+    };
+    
+    // Initialize stat counter animation
+    window.addEventListener('scroll', animateStats);
+    animateStats(); // Run on load in case section is already visible
 });

@@ -9,6 +9,152 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="preload" href="/static/Assets/background.jpg" as="image">
+    <style>
+        /* Mobile Responsiveness Additions */
+        @media (max-width: 768px) {
+            /* Navigation */
+            .eco-nav {
+                padding: 15px 20px;
+            }
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: #fff;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 30px;
+                transition: 0.5s;
+                z-index: 1000;
+            }
+            .nav-links.active {
+                left: 0;
+            }
+            .nav-links li {
+                margin: 15px 0;
+            }
+            .nav-links li a {
+                font-size: 1.2rem;
+            }
+            .burger {
+                display: block;
+            }
+            
+            /* Hero Section */
+            .hero-content {
+                padding: 0 20px;
+                text-align: center;
+            }
+            .hero-tagline {
+                font-size: 1.2rem;
+            }
+            .hero-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .hero-buttons .cta-button {
+                width: 100%;
+            }
+            
+            /* Features Section */
+            .feature-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 0 20px;
+            }
+            
+            /* Models Section */
+            .model-grid {
+                grid-template-columns: 1fr;
+                padding: 0 20px;
+            }
+            
+            /* Carbon Calculator */
+            .calculator-container {
+                flex-direction: column;
+                padding: 0 20px;
+            }
+            .calculator-info, .calculator-form {
+                width: 100%;
+            }
+            .calculator-info {
+                margin-bottom: 30px;
+            }
+            
+            /* Testimonials */
+            .testimonial-container {
+                flex-direction: column;
+                padding: 0 20px;
+            }
+            .testimonial-card {
+                width: 100%;
+                margin-bottom: 30px;
+            }
+            
+            /* Blog Section */
+            .blog-grid {
+                grid-template-columns: 1fr;
+                padding: 0 20px;
+            }
+            
+            /* Newsletter */
+            .newsletter-container {
+                flex-direction: column;
+                text-align: center;
+                padding: 0 20px;
+            }
+            .newsletter-form {
+                width: 100%;
+                margin-top: 20px;
+            }
+            
+            /* Footer */
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                padding: 0 20px;
+            }
+            .footer-section {
+                margin-bottom: 30px;
+            }
+            .footer-owner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .owner-image {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            /* Tablet Styles */
+            .feature-container {
+                grid-template-columns: 1fr 1fr;
+            }
+            .model-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .calculator-container {
+                flex-direction: column;
+            }
+            .calculator-info, .calculator-form {
+                width: 100%;
+            }
+            .testimonial-container {
+                flex-direction: column;
+            }
+            .blog-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
@@ -25,7 +171,6 @@
         <li><a href="{{ url_for('about') }}"><i class="fas fa-info-circle"></i> About Us</a></li>
         <li><a href="{{ url_for('contact') }}"><i class="fas fa-envelope"></i> Contact</a></li>
         <li><a href="{{ url_for('login') }}"><i class="fas fa-envelope"></i>Admin Login</a></li>
-
     </ul>
     <div class="burger" aria-label="Menu">
         <div class="line1"></div>
@@ -50,7 +195,6 @@
                 <a href="models.html" class="cta-button primary-btn pulse"><i class="fas fa-bolt"></i> Explore E-Bikes</a>
                 <a href="#carbon-calculator" class="cta-button secondary-btn"><i class="fas fa-calculator"></i> Carbon Calculator</a>
             </div>
-        </div>
         </div>
     </section>
 
@@ -399,5 +543,31 @@
     </footer>
 
     <script src="/static/JS/Main.js"></script>
+    <script>
+        // Mobile Navigation Toggle
+        const burger = document.querySelector('.burger');
+        const navLinks = document.querySelector('.nav-links');
+        
+        burger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            burger.classList.toggle('toggle');
+        });
+        
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                burger.classList.remove('toggle');
+            });
+        });
+        
+        // Update range input value display
+        const distanceSlider = document.getElementById('daily-distance');
+        const distanceValue = document.getElementById('distance-value');
+        
+        distanceSlider.addEventListener('input', () => {
+            distanceValue.textContent = `${distanceSlider.value} km`;
+        });
+    </script>
 </body>
 </html>

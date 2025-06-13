@@ -21,12 +21,13 @@
     box-sizing: border-box;
 }
 
-body {
+html, body {
+    width: 100%;
+    overflow-x: hidden;
     font-family: 'Poppins', sans-serif;
     line-height: 1.6;
     color: var(--text-color);
     background-color: var(--white);
-    overflow-x: hidden;
     scroll-behavior: smooth;
 }
 
@@ -144,7 +145,6 @@ img {
     box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
 }
 
-/* Logo container styles */
 .logo-container {
     display: flex;
     align-items: center;
@@ -182,7 +182,6 @@ img {
     letter-spacing: 1px;
 }
 
-/* Adjust for scrolled state */
 .eco-nav.scrolled .logo-name {
     font-size: 1.3rem;
 }
@@ -1090,7 +1089,7 @@ img {
 .blog-image img {
     width: 100%;
     height: 100%;
-    object-fit: contain; /* Changed from cover to contain */
+    object-fit: contain;
     transition: transform 0.5s ease;
 }
 
@@ -1282,7 +1281,6 @@ img {
     background-color: var(--primary-color);
 }
 
-/* Footer Logo Styles */
 .footer-logo-container {
     display: flex;
     align-items: center;
@@ -1447,119 +1445,131 @@ img {
     opacity: 0.7;
 }
 
-/* Responsive Design */
-@media screen and (max-width: 1024px) {
-    .company-name h1 {
-        font-size: 3.5rem;
-    }
-    
-    .hero-tagline {
-        font-size: 1.3rem;
-    }
-}
-
+/* ==================== MOBILE RESPONSIVENESS FIXES ==================== */
 @media screen and (max-width: 768px) {
-    .nav-links {
-        position: fixed;
-        right: 0;
-        top: 90px;
-        height: calc(100vh - 90px);
-        width: 70%;
-        background-color: var(--white);
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-around;
-        transform: translateX(100%);
-        transition: transform 0.5s ease-in;
-        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-    }
-    
-    .nav-links.active {
-        transform: translateX(0);
-    }
-    
-    .nav-links li {
-        margin-left: 0;
-    }
-    
+    /* Mobile Menu Fix */
     .burger {
         display: block;
     }
-    
+
+    .nav-links {
+        position: fixed;
+        top: 80px;
+        right: 0;
+        width: 70%;
+        height: calc(100vh - 80px);
+        background-color: var(--white);
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding-top: 30px;
+        transform: translateX(100%);
+        transition: transform 0.4s ease-out;
+        z-index: 998;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-links.active {
+        transform: translateX(0);
+    }
+
+    .nav-links li {
+        margin: 20px 0;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .nav-links.active li {
+        opacity: 1;
+        transition: opacity 0.4s ease 0.3s;
+    }
+
+    /* Burger Animation */
     .toggle .line1 {
         transform: rotate(-45deg) translate(-5px, 6px);
     }
-    
     .toggle .line2 {
         opacity: 0;
     }
-    
     .toggle .line3 {
         transform: rotate(45deg) translate(-5px, -6px);
     }
-    
+
+    /* Hero Section Adjustments */
+    .hero {
+        margin-top: 80px;
+        height: auto;
+        min-height: 100vh;
+        padding: 40px 0;
+    }
+
     .company-name h1 {
         font-size: 2.8rem;
     }
-    
+
     .company-type {
         font-size: 1.2rem;
     }
-    
+
     .hero-tagline {
         font-size: 1.1rem;
     }
-    
+
     .hero-buttons {
         flex-direction: column;
         gap: 15px;
     }
-    
-    .calculator-container {
+
+    /* Card Layouts */
+    .feature-container,
+    .model-grid,
+    .testimonial-container,
+    .blog-grid {
         grid-template-columns: 1fr;
     }
-    
-    .calculator-info {
-        text-align: center;
-    }
-    
-    .eco-facts {
-        grid-template-columns: 1fr;
-    }
-    
-    .model-grid, .blog-grid {
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+
+    /* Disable hover effects on mobile */
+    .feature-card:hover,
+    .model-card:hover,
+    .testimonial-card:hover,
+    .blog-card:hover {
+        transform: none !important;
     }
 }
 
 @media screen and (max-width: 480px) {
+    /* Smaller Screens */
     .company-name h1 {
         font-size: 2.2rem;
     }
-    
-    .company-type {
-        font-size: 1rem;
-    }
-    
-    .hero-tagline {
-        font-size: 1rem;
-    }
-    
+
     .section-header h2 {
         font-size: 2rem;
     }
-    
+
+    /* Forms */
     .calculator-form {
-        padding: 30px 20px;
+        padding: 25px 15px;
     }
-    
-    .footer-logo-container {
+
+    /* Newsletter Form */
+    .newsletter-form {
         flex-direction: column;
+    }
+
+    /* Footer */
+    .footer-content {
+        grid-template-columns: 1fr;
         text-align: center;
     }
-    
-    .footer-logo {
-        margin-bottom: 10px;
+
+    .footer-section h3::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .footer-owner {
+        justify-content: center;
     }
 }
 
